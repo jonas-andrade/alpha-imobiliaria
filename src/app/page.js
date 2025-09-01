@@ -1,55 +1,66 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
-import PropertyCard from "@/components/property/PropertyCard";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 export default function Home() {
   const [properties, setProperties] = useState([]);
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProperties();
   }, []);
 
   const fetchProperties = async () => {
-    let query = supabase.from("properties").select("*");
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from("properties")
+        .select("*")
+        .eq("availability", "available")
+        .order('created_at', { ascending: false })
+        .limit(8);
 
-    if (minPrice) query = query.gte("sale_price", minPrice);
-    if (maxPrice) query = query.lte("sale_price", maxPrice);
-
-    const { data, error } = await query;
-    if (error) console.error(error);
-    else setProperties(data);
+      if (error) {
+        console.error(error);
+        setProperties([]);
+      } else {
+        setProperties(data || []);
+      }
+    } catch (err) {
+      console.error(err);
+      setProperties([]);
+    }
+    setLoading(false);
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Imóveis em destaque</h1>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h1 className="text-2xl font-bold mb-4 text-blue-700">Imóveis em Destaque</h1>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <input
-          type="number"
-          placeholder="Preço mínimo"
-          value={minPrice}
-          onChange={(e) => setMinPrice(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Preço máximo"
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(e.target.value)}
-        />
-        <button onClick={fetchProperties}>Filtrar</button>
-      </div>
+      {loading && <p className="text-gray-500">Carregando...</p>}
 
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-        {properties.length > 0 ? (
-          properties.map((p) => <PropertyCard key={p.property_id} property={p} />)
-        ) : (
-          <p>Nenhum imóvel encontrado...</p>
-        )}
+      {properties.length === 0 && !loading && (
+        <p className="text-gray-500">Nenhum imóvel disponível.</p>
+      )}
+
+      <ul className="space-y-2 mb-4">
+        {properties.map((p) => (
+          <li key={p.id} className="bg-white p-2 border rounded">
+            <Link href={`/properties/${p.id}`} className="text-blue-600 hover:underline">
+              {p.title || "Imóvel sem título"}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      <div className="space-x-4">
+        <Link href="/properties" className="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-500">
+          Ver todos os imóveis
+        </Link>
+        <Link href="/contact" className="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-500">
+          Falar com corretor
+        </Link>
       </div>
     </div>
   );

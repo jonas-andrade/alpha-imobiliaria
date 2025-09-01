@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -21,7 +21,7 @@ export default function LoginPage() {
     if (error) {
       setError(error.message);
     } else {
-      router.push("/admin");
+      router.push("/dashboard/admin");
     }
   }
 
@@ -59,7 +59,7 @@ export default function LoginPage() {
         </button>
 
         <p className="mt-4 text-sm text-center">
-          Não tem conta? <a href="/register" className="text-blue-500">Registre-se</a>
+          Não tem conta? <a href="/auth/register" className="text-blue-500">Registre-se</a>
         </p>
       </form>
     </div>
