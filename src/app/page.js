@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import PropertyCard from "@/components/PropertyCard";
+import PropertyCard from "@/components/property/PropertyCard";
 
 export default function Home() {
   const [properties, setProperties] = useState([]);
