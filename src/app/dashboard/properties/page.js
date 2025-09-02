@@ -1,49 +1,47 @@
 "use client";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabaseClient";
+import PropertyCard from "@/components/property/PropertyCard";
+export default function Properties() {
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export default function Imovel({ params }) {
-  const { id } = params;
-  const [property, setProperty] = useState(null);
 
   useEffect(() => {
-    const fetchProperty = async () => {
-      const { data, error } = await supabase
-        .from("properties")
-        .select("*")
-        .eq("property_id", id)
-        .single();
-      if (error) console.error(error);
-      else setProperty(data);
-    };
-    fetchProperty();
-  }, [id]);
+    const fetchProperties = async () => {
+      try {
+        const { data, error } = await supabase.from("properties").select("*");
 
-  if (!property) return <p>Carregando imóvel...</p>;
+        if (error) {
+          console.error("Erro ao buscar imóveis:", error); setProperties([]);
+        } else { setProperties(data || []); }
+
+      } catch (err) {
+        console.error(err); setProperties([]);
+      }
+      setLoading(false);
+    };
+
+    fetchProperties();
+  }, []);
+
+
+  if (loading) return <p className="p-4 text-gray-500">Carregando imóveis...</p>;
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>{property.title}</h1>
-      <p>Preço: R$ {property.sale_price?.toLocaleString()}</p>
-      <p>Quartos: {property.bedrooms}</p>
-      <p>Banheiros: {property.bathrooms}</p>
-      <p>{property.has_premium_features ? "Premium" : "Standard"}</p>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h1 className="text-2xl font-bold mb-6 text-blue-700">Todos os Imóveis</h1>
 
-      <a
-        href={`https://wa.me/558591773278?text=Tenho interesse no imóvel ${property.title}`}
-        target="_blank"
-        style={{
-          display: "inline-block",
-          padding: "1rem",
-          background: "green",
-          color: "white",
-          textDecoration: "none",
-          marginTop: "1rem",
-        }}
-      >
-        Falar no WhatsApp
-      </a>
+      {properties.length === 0 ? (
+        <p className="text-gray-500">Nenhum imóvel encontrado.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {properties.map((property) => (
+            <PropertyCard key={property.property_id} property={property} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
