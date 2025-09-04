@@ -2,23 +2,29 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import PropertyCard from "@/components/property/PropertyCard";
-export default function Properties() {
 
+export default function Properties() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const { data, error } = await supabase.from("properties").select("*");
+        const { data, error } = await supabase
+          .from("properties")
+          .select("*")
+          .order('created_at', { ascending: false });
 
         if (error) {
-          console.error("Erro ao buscar imóveis:", error); setProperties([]);
-        } else { setProperties(data || []); }
+          console.error("Erro ao buscar imóveis:", error);
+          setProperties([]);
+        } else {
+          setProperties(data || []);
+        }
 
       } catch (err) {
-        console.error(err); setProperties([]);
+        console.error(err);
+        setProperties([]);
       }
       setLoading(false);
     };
@@ -26,22 +32,60 @@ export default function Properties() {
     fetchProperties();
   }, []);
 
-
-  if (loading) return <p className="p-4 text-gray-500">Carregando imóveis...</p>;
+  if (loading) {
+    return (
+      <div className="bg-background min-h-screen py-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="mb-12">
+            <h1 className="text-3xl lg:text-4xl font-light text-foreground">
+              Todos os Imóveis
+            </h1>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="space-y-4 animate-pulse">
+                <div className="aspect-[4/3] bg-border rounded" />
+                <div className="h-4 bg-border rounded w-1/2" />
+                <div className="h-6 bg-border rounded w-3/4" />
+                <div className="h-4 bg-border rounded w-1/4" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6 text-blue-700">Todos os Imóveis</h1>
-
-      {properties.length === 0 ? (
-        <p className="text-gray-500">Nenhum imóvel encontrado.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {properties.map((property) => (
-            <PropertyCard key={property.property_id} property={property} />
-          ))}
+    <div className="bg-background min-h-screen py-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        {/* Header */}
+        <div className="mb-16">
+          <p className="text-xs text-muted-foreground/80 tracking-[0.2em] uppercase font-light mb-4">
+            Nosso Portfólio
+          </p>
+          <h1 className="text-3xl lg:text-4xl font-light text-foreground">
+            Todos os Imóveis
+          </h1>
         </div>
-      )}
+
+        {/* Properties */}
+        {properties.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-muted-foreground font-light text-lg">
+              Nenhum imóvel encontrado.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
+            {properties.map((property) => (
+              <PropertyCard key={property.property_id} property={property} />
+            ))}
+          </div>
+        )}
+
+      </div>
     </div>
   );
 }
