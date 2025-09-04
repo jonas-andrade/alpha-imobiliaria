@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
+/* ----------------- CORES MODERN HOUSE INSPIRED ----------------- */
 :root {
+  /* Cores principais */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
+  --muted: #f8f9fa;
+  --muted-foreground: #4b5563;
+  
+  /* Cores de acento */
+  --primary: #111827;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #374151;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
+  
+  /* Cores de borda e divisão */
+  --border: #e5e7eb;
+  --ring: #d1d5db;
+  
+  /* Estados */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --success: #10b981;
+  --warning: #f59e0b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #f9fafb;
+    --muted: #111827;
+    --muted-foreground: #9ca3af;
+    --secondary: #1f2937;
+    --secondary-foreground: #f3f4f6;
+    --border: #374151;
+    --ring: #4b5563;
   }
 }
 
+/* ----------------- BODY ----------------- */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-weight: 300; /* Mais elegante, como The Modern House */
+  letter-spacing: -0.01em;
+}
+
+/* ----------------- SCROLLBAR CUSTOMIZATION ----------------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }

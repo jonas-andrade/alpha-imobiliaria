@@ -1,6 +1,10 @@
-import Header from "@/components/layout/Header";
+import Header from "@/components/layout/Header"; 
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
+import { Montserrat } from "next/font/google";
+
+// Montserrat como fonte principal gratuita, moderna e geométrica, próxima da Söhne
+const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","500","700"] });
 
 export const metadata = {
   title: "Alpha Imobiliária",
@@ -9,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body>
+      <body className={montserrat.className}>
         <Header />
         <main>{children}</main>
         <Footer />
