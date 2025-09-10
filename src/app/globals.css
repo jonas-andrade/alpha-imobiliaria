@@ -3,8 +3,9 @@
 /* ----------------- CORES MODERN HOUSE INSPIRED ----------------- */
 :root {
   /* Cores principais */
-  --background: #ffffff;
+  --background: #f5f1ed;
   --foreground: #1a1a1a;
+  --white: #ffffff; 
   --muted: #f8f9fa;
   --muted-foreground: #4b5563;
   
@@ -64,11 +65,12 @@
 
 /* ----------------- BODY ----------------- */
 body {
-  background: var(--background);
+  background-color: var(--white);
   color: var(--foreground);
   font-family: var(--font-sans);
-  font-weight: 300; /* Mais elegante, como The Modern House */
+  font-weight: 300;
   letter-spacing: -0.01em;
+
 }
 
 /* ----------------- SCROLLBAR CUSTOMIZATION ----------------- */
