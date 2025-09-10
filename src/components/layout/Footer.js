@@ -39,7 +39,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Links Rápidos</h3>
             <ul className="space-y-2">
               <li><Link href="/properties" className="text-gray-300 hover:text-white">Imóveis</Link></li>
-              <li><Link href="/agents" className="text-gray-300 hover:text-white">Corretores</Link></li>
+              {/* <li><Link href="/agents" className="text-gray-300 hover:text-white">Corretores</Link></li> */}
               <li><Link href="/about" className="text-gray-300 hover:text-white">Sobre Nós</Link></li>
               <li><Link href="/contact" className="text-gray-300 hover:text-white">Contato</Link></li>
             </ul>

@@ -13,12 +13,12 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="bg-background border-b border-border">
+    <header className="bg-white border-b border-gray-200"> {/* fundo sempre branco */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-20">
         
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <span className="text-2xl font-light text-foreground tracking-tight">
+          <span className="text-2xl font-light text-gray-900 tracking-tight">
             Alpha Imobiliária
           </span>
         </Link>
@@ -29,7 +29,7 @@ export default function Header() {
             <Link 
               key={link.href} 
               href={link.href} 
-              className="text-muted-foreground hover:text-foreground font-light text-sm tracking-wide transition-colors duration-300"
+              className="text-gray-500 hover:text-gray-900 font-light text-sm tracking-wide transition-colors duration-300"
             >
               {link.label}
             </Link>
@@ -40,13 +40,13 @@ export default function Header() {
         <div className="hidden md:flex items-center space-x-6">
           <Link 
             href="/auth/login" 
-            className="text-muted-foreground hover:text-foreground font-light text-sm tracking-wide transition-colors duration-300"
+            className="text-gray-500 hover:text-gray-900 font-light text-sm tracking-wide transition-colors duration-300"
           >
             Entrar
           </Link>
           <Link 
             href="/auth/register" 
-            className="border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-2 font-light text-sm tracking-wide transition-all duration-300"
+            className="border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white px-6 py-2 font-light text-sm tracking-wide transition-all duration-300"
           >
             Anunciar Imóvel
           </Link>
@@ -59,7 +59,7 @@ export default function Header() {
           aria-label="Menu"
         >
           <svg 
-            className="w-5 h-5 text-muted-foreground" 
+            className="w-5 h-5 text-gray-500" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -76,14 +76,14 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-background border-t border-border">
+        <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-6 py-6 space-y-6">
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <Link 
                   key={link.href} 
                   href={link.href} 
-                  className="text-muted-foreground hover:text-foreground font-light text-base tracking-wide transition-colors duration-300"
+                  className="text-gray-500 hover:text-gray-900 font-light text-base tracking-wide transition-colors duration-300"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
@@ -91,17 +91,17 @@ export default function Header() {
               ))}
             </div>
             
-            <div className="pt-6 border-t border-border flex flex-col space-y-4">
+            <div className="pt-6 border-t border-gray-200 flex flex-col space-y-4">
               <Link 
                 href="/auth/login" 
-                className="text-muted-foreground hover:text-foreground font-light text-base tracking-wide transition-colors duration-300"
+                className="text-gray-500 hover:text-gray-900 font-light text-base tracking-wide transition-colors duration-300"
                 onClick={() => setMobileOpen(false)}
               >
                 Entrar
               </Link>
               <Link 
                 href="/auth/register" 
-                className="border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 font-light text-sm tracking-wide transition-all duration-300 text-center"
+                className="border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white px-6 py-3 font-light text-sm tracking-wide transition-all duration-300 text-center"
                 onClick={() => setMobileOpen(false)}
               >
                 Anunciar Imóvel
