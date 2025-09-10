@@ -13,20 +13,27 @@ export default function Properties() {
         const { data, error } = await supabase
           .from("properties")
           .select("*")
-          .order('created_at', { ascending: false });
+          .eq("has_photos", true) // só imóveis com fotos
+          .order("created_at", { ascending: false });
 
-        if (error) {
-          console.error("Erro ao buscar imóveis:", error);
-          setProperties([]);
-        } else {
-          setProperties(data || []);
-        }
+        if (error) throw error;
 
+        const processed = data.map((p) => {
+          const baseUrl = `https://ijmupkeqsqxrtbdidovc.supabase.co/storage/v1/object/public/imoveis-alpha/photos_highlight/${p.property_id}`;
+          return {
+            ...p,
+            mainImage: `${baseUrl}/fachada.jpg`,
+            hoverImage: `${baseUrl}/sala.jpg`,
+          };
+        });
+
+        setProperties(processed);
       } catch (err) {
-        console.error(err);
+        console.error("Erro ao buscar imóveis:", err);
         setProperties([]);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchProperties();
@@ -42,7 +49,7 @@ export default function Properties() {
             </h1>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
+            {[...Array(6)].map((_, i) => (
               <div key={i} className="space-y-4 animate-pulse">
                 <div className="aspect-[4/3] bg-border rounded" />
                 <div className="h-4 bg-border rounded w-1/2" />
@@ -59,7 +66,6 @@ export default function Properties() {
   return (
     <div className="bg-background min-h-screen py-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        
         {/* Header */}
         <div className="mb-16">
           <p className="text-xs text-muted-foreground/80 tracking-[0.2em] uppercase font-light mb-4">
@@ -84,7 +90,6 @@ export default function Properties() {
             ))}
           </div>
         )}
-
       </div>
     </div>
   );
