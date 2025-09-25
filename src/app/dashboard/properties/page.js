@@ -13,7 +13,7 @@ export default function Properties() {
         const { data, error } = await supabase
           .from("properties")
           .select("*")
-          .eq("has_photos", true) // só imóveis com fotos
+          .eq("has_photos", true)
           .order("created_at", { ascending: false });
 
         if (error) throw error;
@@ -66,7 +66,7 @@ export default function Properties() {
   return (
     <div className="bg-background min-h-screen py-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header */}
+
         <div className="mb-16">
           <p className="text-xs text-muted-foreground/80 tracking-[0.2em] uppercase font-light mb-4">
             Nosso Portfólio
@@ -76,7 +76,7 @@ export default function Properties() {
           </h1>
         </div>
 
-        {/* Properties */}
+       
         {properties.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-muted-foreground font-light text-lg">
@@ -90,6 +90,7 @@ export default function Properties() {
             ))}
           </div>
         )}
+
       </div>
     </div>
   );

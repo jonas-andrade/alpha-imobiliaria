@@ -8,7 +8,6 @@ export default function PropertyPhotosPage() {
 
   return (
     <div className="p-8 font-serif bg-white text-gray-900">
-      {/* Título elegante e tag discreta */}
       <div className="flex items-end gap-2 mb-4">
         <h1 className="text-lg md:text-xl font-light tracking-wide">
           Fotos do Imóvel
@@ -18,10 +17,8 @@ export default function PropertyPhotosPage() {
         </span>
       </div>
 
-      {/* Linha sutil */}
       <div className="border-t border-gray-200 mb-3" />
 
-      {/* Componente de fotos */}
       <Photos propertyId={id} apiKey={apiKey} />
     </div>
   );

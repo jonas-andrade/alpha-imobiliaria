@@ -3,7 +3,6 @@ import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import { Montserrat } from "next/font/google";
 
-// Montserrat como fonte principal gratuita, moderna e geométrica, próxima da Söhne
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","500","700"] });
 
 export const metadata = {

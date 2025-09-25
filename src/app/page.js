@@ -13,7 +13,6 @@ export default function Home() {
       <FeaturedSales />
        <AboutHighlight />
       <section className="-mt-12">
-       
         <AboutSectionPreview />
       </section>
       

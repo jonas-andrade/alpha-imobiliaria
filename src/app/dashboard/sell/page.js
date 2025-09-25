@@ -25,7 +25,6 @@ const testimonials = [
 export default function LookingToSell() {
   return (
     <section className="w-full bg-background text-foreground">
-      {/* Introdução */}
       <div className="max-w-5xl mx-auto px-6 py-16 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Quer vender seu imóvel?</h2>
         <p className="text-lg md:text-xl font-light mb-4">
@@ -57,7 +56,6 @@ export default function LookingToSell() {
         </form>
       </div>
 
-      {/* Destaques de marketing */}
       <div className="max-w-5xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
         <div>
           <h3 className="font-bold text-xl mb-2">Exposição Internacional</h3>
@@ -73,7 +71,6 @@ export default function LookingToSell() {
         </div>
       </div>
 
-      {/* Depoimentos com fotos alternadas */}
       <div className="max-w-5xl mx-auto px-6 py-16 space-y-16">
         {testimonials.map((t, idx) => (
           <div

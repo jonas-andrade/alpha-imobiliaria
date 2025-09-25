@@ -31,7 +31,7 @@ export default function PropertyPage() {
     fetchProperty();
   }, [id]);
 
-  // Recentemente vistos
+  
   useEffect(() => {
     if (property && typeof window !== "undefined") {
       const stored = JSON.parse(localStorage.getItem("recentlyViewed") || "[]");
@@ -74,12 +74,11 @@ export default function PropertyPage() {
     `${baseUrl}/cozinha.jpg`,
   ];
 
-  // Use full_address for maps, fallback to location if full_address is not available
   const mapAddress = property.full_address || property.location || "Fortaleza, CE";
 
   return (
     <div className="w-full bg-background text-foreground">
-      {/* Hero Section */}
+      
       <div className={`${showMap ? 'bg-[#f5f0e5]' : 'bg-secondary-greige'} flex flex-col lg:flex-row w-full`}>
         <div className="relative w-full lg:w-3/5 aspect-[3/2] lg:h-[80vh]">
           {showMap ? (
@@ -93,7 +92,7 @@ export default function PropertyPage() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-              {/* Gradient overlay na margem direita */}
+
               <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-[#f5f0e5] via-[#f5f0e5]/60 to-transparent pointer-events-none"></div>
             </div>
           ) : (
@@ -108,7 +107,7 @@ export default function PropertyPage() {
           </Link>
         </div>
 
-        {/* Sidebar */}
+       
         <div className={`${showMap ? 'bg-[#f5f0e5]' : 'bg-secondary-greige'} flex justify-start items-start lg:items-center w-full lg:w-2/5 lg:sticky top-32`}>
           <div className="relative mx-6 lg:mx-20 py-10 lg:py-0 w-full">
             <p className="text-lg lg:text-xl font-serif leading-8 font-light text-foreground">
@@ -125,7 +124,6 @@ export default function PropertyPage() {
               </div>
             </div>
 
-            {/* Ícones de detalhes */}
             <div className="flex flex-wrap gap-6 mt-6 text-sm text-gray-700">
               <div className="flex items-center gap-2">
                 <BedDouble className="w-5 h-5" />
@@ -145,7 +143,6 @@ export default function PropertyPage() {
               </div>
             </div>
 
-            {/* Áreas e informações adicionais */}
             <div className="flex flex-wrap gap-6 mt-4 text-sm text-gray-700">
               <span>🏠 {property.built_area_m2 || 0} m² construídos</span>
               <span>🌳 {property.land_area_m2 || 0} m² terreno</span>
@@ -153,7 +150,7 @@ export default function PropertyPage() {
               {property.ready_to_live && <span>✅ Pronto para morar</span>}
             </div>
 
-            {/* Destaques */}
+        
             <div className="flex flex-wrap gap-2 mt-4">
               {property.has_pool && (
                 <span className="flex items-center gap-1 bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">
@@ -182,7 +179,6 @@ export default function PropertyPage() {
               )}
             </div>
 
-            {/* Botões de navegação */}
             <div className="flex flex-wrap gap-4 pt-6 text-sm font-sans tracking-widest uppercase">
               <button
                 className="text-white bg-black px-4 py-2 transition-all duration-500 hover:bg-gray-800"
@@ -204,7 +200,6 @@ export default function PropertyPage() {
               </button>
             </div>
 
-            {/* Botão de ação + endereço */}
             <div className="space-y-2 mt-6 flex flex-col">
               <a
                 href={`https://api.whatsapp.com/send?phone=558586020514&text=${encodeURIComponent(
@@ -226,7 +221,6 @@ export default function PropertyPage() {
         </div>
       </div>
 
-      {/* Descrição */}
       <div ref={sobreRef} className="bg-background px-6 md:px-[12vw] py-12 w-full">
         <h2 className="text-2xl font-bold mb-4">Luxuosa Casa de Alto Padrão</h2>
         <p className="text-lg md:text-xl font-light text-foreground leading-relaxed mb-4">
@@ -247,7 +241,6 @@ export default function PropertyPage() {
         </button>
       </div>
 
-      {/* Grid fotos */}
       <div className="max-w-screen-2xl mx-auto px-5 md:px-10 py-12 grid grid-cols-2 gap-6">
         {photosHighlight.slice(1, 5).map((photo, idx) => (
           <div key={idx} className="relative aspect-[4/3] w-full rounded-sm overflow-hidden">
@@ -256,12 +249,10 @@ export default function PropertyPage() {
         ))}
       </div>
 
-      {/* Imóveis Relacionados */}
       <div ref={relatedRef}>
         <RelatedSales />
       </div>
 
-      {/* Footer / Newsletter */}
       <footer className="w-full bg-primary text-primary-foreground px-6 py-6 flex flex-col lg:flex-row items-center justify-center gap-4">
         <a
           href={`https://api.whatsapp.com/send?phone=558586020514&text=${encodeURIComponent(

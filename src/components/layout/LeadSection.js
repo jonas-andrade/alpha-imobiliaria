@@ -3,7 +3,7 @@
   export default function LeadSection() {
     return (
       <div className="relative">
-      
+        {/* Seção principal */}
         <div className="bg-background p-5 pb-2 md:px-[15vw] lg:px-[20vw] md:pt-12 md:pb-4 w-full flex flex-col justify-center items-center pt-8 pb-2">
           
           <p className="text-foreground font-light text-base lg:text-lg w-full text-center leading-relaxed">
